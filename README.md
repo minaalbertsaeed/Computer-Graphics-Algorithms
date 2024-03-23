@@ -1,11 +1,7 @@
- 
 <h1 align="center">Computer Graphics Algorithms</h1>
 
-## About
-- This repo contains some Computer Graphics Algorithms implemented using Windows API (C++)
-
 ## How to compile and run
-- **Windows**
+- **Windows** (CMD or Powershell)
     ```CMD
         REM compile using the MinGW g++ compiler 
         g++ -mwindows -lgdi32 InputFile.cpp -o outputFile.exe
@@ -32,7 +28,7 @@
         sudo pacman -Syu
         sudo pacman -S wine
         ```
-        - compile the code and run the executable with wine64
+    3. compile the code and run the executable with wine64
          ```bash
             # compile to windows executable
                x86_64-w64-mingw32-g++ -mwindows -lgdi32 path/to/InputFile.cpp -o path/to/outputFile.exe
@@ -40,3 +36,4 @@
             # run with wine64  
                wine64 path/to/outputFile.exe
           ```
+        - I created a simple **bash script** to automate the **compile and run** process, you can integrate it with any text editor of IDE
