@@ -36,4 +36,4 @@
             # run with wine64  
                wine64 path/to/outputFile.exe
           ```
-        - I created a simple **bash script** to automate the **compile and run** process, you can integrate it with any text editor of IDE
+        - I created a simple **bash script** to automate the **compile and run** process at src/run, you can integrate it with any text editor of IDE
