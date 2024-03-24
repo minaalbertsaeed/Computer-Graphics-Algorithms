@@ -1,11 +1,9 @@
 #!/bin/bash
 
 cpp_files=(
-     "src/LineAlgorithms.cpp"
-     "src/main.cpp"
-     # "src/BigDecimalInt.cpp"
-     # "src/BigReal.cpp"
- )
+    "LineAlgorithms.cpp"
+    "main.cpp"
+)
 
 output_file="output.exe"
 
@@ -13,4 +11,4 @@ compile_run_command="x86_64-w64-mingw32-g++ -mwindows -lgdi32 -static ${cpp_file
 
 run_command="wine64 $output_file"
 
-$compile_run_command &&  $run_command  && rm output 
+$compile_run_command &&  $run_command  && rm $output_file 
