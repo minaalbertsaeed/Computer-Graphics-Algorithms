@@ -18,8 +18,7 @@ LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 /*  Make the class name into a global variable  */
 TCHAR szClassName[] = _T("Windows App");
 
-int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance,
-                   LPSTR lpszArgument, int nCmdShow) {
+int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow) {
   HWND hwnd;        /* This is the handle for our window */
   MSG messages;     /* Here messages to the application are saved */
   WNDCLASSEX wincl; /* Data structure for the windowclass */
@@ -78,35 +77,41 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance,
 
 /*  This function is called by the Windows function DispatchMessage()  */
 
-LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
-                                 LPARAM lParam) {
-  HDC hdc;
-  static int x, y;
-  switch (message) {
-  case WM_LBUTTONDOWN: 
-  {
-      x = LOWORD(lParam);
-      y = HIWORD(lParam);
-      cout << x << ' ' << y << '\n';
-      break;
-  }
+LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
+    HDC hdc;
+    static int x, y;
+    switch (message) {
 
-  case WM_LBUTTONUP: // Release of left click
-  {
-      COLORREF c = RGB(0, 0, 255);
-      hdc = GetDC(hwnd);
-      DrawLineBresenham(hdc, x, y, LOWORD(lParam), HIWORD(lParam), c);
-      ReleaseDC(hwnd, hdc);
-      break;
-  }
-  case WM_CLOSE:
-    DestroyWindow(hwnd);
-    break;
-  case WM_DESTROY:
-    PostQuitMessage(0);
-    break;
-  default:
-    return DefWindowProc(hwnd, message, wParam, lParam);
-  }
-  return 0;
+        case WM_LBUTTONDOWN: {
+            x = LOWORD(lParam);
+            y = HIWORD(lParam);
+
+            break;
+        }
+
+        case WM_LBUTTONUP:  {    // Release of left click
+            COLORREF c = RGB(0, 0, 255);
+
+            hdc = GetDC(hwnd);
+            int x1 = LOWORD(lParam);
+            int y1 = HIWORD(lParam);
+
+            DrawLineDDA(hdc, x, y, x1,y,  c); // top 
+            DrawLineDDA(hdc, x, y, x,y1,  c);
+            DrawLineDDA(hdc, x, y1, x1,y1,  c);
+            DrawLineDDA(hdc, x1, y, x1,y1,  c);
+
+            ReleaseDC(hwnd, hdc);
+            break;
+        }
+        case WM_CLOSE:
+            DestroyWindow(hwnd);
+            break;
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            break;
+        default:
+            return DefWindowProc(hwnd, message, wParam, lParam);
+    }
+    return 0;
 }
