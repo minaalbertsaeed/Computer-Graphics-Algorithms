@@ -6,6 +6,7 @@
 
 #include <tchar.h>
 #include <windows.h>
+#include <iostream>
 
 #include "LineAlgorithms.h"
 
@@ -89,11 +90,11 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam,
       cout << x << ' ' << y << '\n';
       break;
   }
+
   case WM_LBUTTONUP: // Release of left click
   {
       COLORREF c = RGB(0, 0, 255);
       hdc = GetDC(hwnd);
-      cout << LOWORD(lParam)  << ' ' <<  HIWORD(lParam) << '\n';
       DrawLineBresenham(hdc, x, y, LOWORD(lParam), HIWORD(lParam), c);
       ReleaseDC(hwnd, hdc);
       break;

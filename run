@@ -1,8 +1,8 @@
 #!/bin/bash
 
 cpp_files=(
-    "LineAlgorithms.cpp"
-    "main.cpp"
+    "src/LineAlgorithms.cpp"
+    "src/main.cpp"
 )
 
 output_file="output.exe"
