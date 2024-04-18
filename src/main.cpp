@@ -7,11 +7,9 @@
 #include <tchar.h>
 #include <windows.h>
 #include <iostream>
-
-#include "LineAlgorithms.h"
-
-// using namespace std;
-using std::cout;
+#include "CircleAlgorithms.h"
+// #include "LineAlgorithms.h"
+using std::cout ;
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
@@ -51,8 +49,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
                      _T(" Template Windows App"), /* Title Text */
                      WS_OVERLAPPEDWINDOW,         /* default window */
                      CW_USEDEFAULT, /* Windows decides the position */
-                     CW_USEDEFAULT, /* where the window ends up on the screen */
-                     544,           /* The programs width */
+                     CW_USEDEFAULT, /* where the window ends up on the screen */ 544,           /* The programs width */
                      375,           /* and height in pixels */
                      HWND_DESKTOP, /* The window is a child-window to desktop */
                      NULL,         /* No menu */
@@ -83,27 +80,31 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
     switch (message) {
 
         case WM_LBUTTONDOWN: {
+            hdc = GetDC(hwnd);
             x = LOWORD(lParam);
             y = HIWORD(lParam);
-
-            break;
-        }
-
-        case WM_LBUTTONUP:  {    // Release of left click
-            COLORREF c = RGB(0, 0, 255);
-
-            hdc = GetDC(hwnd);
-            int x1 = LOWORD(lParam);
-            int y1 = HIWORD(lParam);
-
-            DrawLineDDA(hdc, x, y, x1,y,  c); // top 
-            DrawLineDDA(hdc, x, y, x,y1,  c);
-            DrawLineDDA(hdc, x, y1, x1,y1,  c);
-            DrawLineDDA(hdc, x1, y, x1,y1,  c);
-
+            // cout << x << " " << y << "\n";
+            COLORREF c = RGB(255, 0,0 );
+            DrawCircleCartesian(hdc, 400, 400, 100, c);
             ReleaseDC(hwnd, hdc);
             break;
         }
+
+        // case WM_LBUTTONUP:  {    // Release of left click
+        //     // COLORREF c = RGB(0, 0, 255); 
+        //     //
+        //     // hdc = GetDC(hwnd);
+        //     // int x1 = LOWORD(lParam);
+        //     // int y1 = HIWORD(lParam);
+        //     //
+        //     // DrawLineDDA(hdc, x, y, x1,y, c); // top 
+        //     // DrawLineDDA(hdc, x, y, x,y1, c);
+        //     // DrawLineDDA(hdc, x, y1, x1,y1, c);
+        //     // DrawLineDDA(hdc, x1, y, x1,y1,  c);
+        //     //
+        //     // ReleaseDC(hwnd, hdc);
+        //     break;
+        // }
         case WM_CLOSE:
             DestroyWindow(hwnd);
             break;
