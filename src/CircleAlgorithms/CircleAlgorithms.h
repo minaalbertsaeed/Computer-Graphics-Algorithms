@@ -1,5 +1,5 @@
-#ifndef LineAlgorithms
-#define LineAlgorithms
+#ifndef CircleAlgorithms
+#define CircleAlgorithms 
 
 #include <windows.h>
 
@@ -13,19 +13,25 @@ void DrawCircleCartesian(HDC hdc, int xc, int yc, int R, COLORREF c);
 // x = R*cos(theta)
 // y = R*sin(theta)
 void DrawCirclePolarNaive(HDC hdc, int xc, int yc, int R, COLORREF c);
+/*
+As x = R*cos(theta) 
+y = R*sin(theta)
+We start from the 1st octant x = R, y = 
+then, new_x = R*cos(theta - dtheta) -- As x decreases
+then, new_y = R*sin(theta + dtheta) -- As y increases
+using the sum and diff trig identities 
+--> new_x = R*Cos(theta) * cos(dtheta) - R*sin(theta) * sin(dtheta)
+          = x * cos(dtheta) - y * sin(dtheta)
 
-// As x = R*cos(theta) 
-// y = R*sin(theta)
-// then, new_x = R*cos(theta - dtheta) -- As x decreases
-// then, new_y = R*sin(theta + dtheta) -- As y increases
-// using the sum and diff trig identities 
-// --> new_x = R*Cos(theta) * cos(dtheta) - R*sin(theta) * sin(dtheta)
-//           = x * cos(dtheta) - y * sin(dtheta)
-//
-// --> new_y = R*Cos(theta) * sin(dtheta) - R*sin(theta) * cos(dtheta)
-//           = x * sin(dtheta) - y * cos(dtheta)
+--> new_y = R*Cos(theta) * sin(dtheta) - R*sin(theta) * cos(dtheta)
+          = x * sin(dtheta) - y * cos(dtheta)
+ */
 void DrawCirclePolarImproved(HDC hdc, int xc, int yc, int R, COLORREF c);
 
-// void DrawCircleBresenham(HDC hdc, int x1, int y1, COLORREF color);
+/* Based on the 1st Order Difference */
+void DrawCircleBresenham1(HDC hdc, int x1, int y1, int R, COLORREF color);
+
+/* Based on the 2nd Order Difference */
+void DrawCircleBresenham2(HDC hdc, int x1, int y1, int R, COLORREF color);
 
 #endif 

@@ -63,3 +63,44 @@ void DrawCirclePolarImproved(HDC hdc, int xc, int yc, int R, COLORREF c) {
     }
 
 }
+
+void DrawCircleBresenham1(HDC hdc, int xc, int yc, int R, COLORREF c) {
+    int x = 0 ,y = R;
+    Draw8Points(hdc, xc, yc, x, y, c);
+    int  d = 1 - R;
+
+    while (x < y) {
+         if(d >= 0 ){
+            d += 2*(x - y) + 5;
+            y--;
+        }else {
+            d += (2 * x) + 3;
+        }
+        x++;
+        Draw8Points(hdc, xc, yc, x, y, c);
+    }
+
+}
+
+
+void DrawCircleBresenham2(HDC hdc, int xc, int yc, int R, COLORREF c) {
+    int x = 0 ,y = R;
+    Draw8Points(hdc, xc, yc, x, y, c);
+    int d = 1 - R;
+    int change1 = 3;
+    int change2 = 5 - 2 * R;
+    
+    while (x < y) {
+        if(d >= 0){
+            d += change1;
+            change2 += 2;
+        }else {
+            d+= change2; 
+            change2 += 4;
+            y--;
+        }
+         x++; change1 += 2;
+        Draw8Points(hdc, xc, yc, x, y, c);
+    }
+
+}

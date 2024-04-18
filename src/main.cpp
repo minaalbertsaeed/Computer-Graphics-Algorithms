@@ -6,6 +6,7 @@
 
 #include <tchar.h>
 #include <windows.h>
+#include <wingdi.h>
 #include <cmath>
 #include "CircleAlgorithms/CircleAlgorithms.h"
 //
@@ -93,8 +94,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             int x1 = LOWORD(lParam);
             int y1 = HIWORD(lParam);
             double R = sqrt(pow(x1 - x, 2) + pow(y1 - y, 2));
-
-            DrawCirclePolarImproved(hdc, x, y, R, c);
+            DrawCircleBresenham1(hdc, x, y, R, c);
             ReleaseDC(hwnd, hdc);
             break;
         }
