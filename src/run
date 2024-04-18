@@ -2,8 +2,8 @@
 
 cpp_files=(
     # "src/LineAlgorithmsLineAlgorithms.cpp"
-    "src/CircleAlgorithms/CircleAlgorithms.cpp"
-    "src/main.cpp"
+    "CircleAlgorithms/CircleAlgorithms.cpp"
+    "main.cpp"
 )
 
 output_file="output.exe"
