@@ -6,7 +6,9 @@ CXX = x86_64-w64-mingw32-g++
 CXXFLAGS = -mwindows -lgdi32 -static
 
 # Source files
-CPP_FILES = src/main.cpp src/CircleAlgorithms.cpp
+CPP_FILES = \
+			src/main.cpp \
+			src/CircleAlgorithms/CircleAlgorithms.cpp
 
 # Output file
 OUTPUT_FILE = output.exe

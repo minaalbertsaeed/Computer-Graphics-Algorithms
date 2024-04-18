@@ -14,7 +14,17 @@ void DrawCircleCartesian(HDC hdc, int xc, int yc, int R, COLORREF c);
 // y = R*sin(theta)
 void DrawCirclePolarNaive(HDC hdc, int xc, int yc, int R, COLORREF c);
 
-void DrawCirclePolarIterative(HDC hdc, int xc, int yc, int R, COLORREF c);
+// As x = R*cos(theta) 
+// y = R*sin(theta)
+// then, new_x = R*cos(theta - dtheta) -- As x decreases
+// then, new_y = R*sin(theta + dtheta) -- As y increases
+// using the sum and diff trig identities 
+// --> new_x = R*Cos(theta) * cos(dtheta) - R*sin(theta) * sin(dtheta)
+//           = x * cos(dtheta) - y * sin(dtheta)
+//
+// --> new_y = R*Cos(theta) * sin(dtheta) - R*sin(theta) * cos(dtheta)
+//           = x * sin(dtheta) - y * cos(dtheta)
+void DrawCirclePolarImproved(HDC hdc, int xc, int yc, int R, COLORREF c);
 
 // void DrawCircleBresenham(HDC hdc, int x1, int y1, COLORREF color);
 
