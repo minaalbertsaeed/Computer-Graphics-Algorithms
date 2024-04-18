@@ -9,7 +9,7 @@
         REM Run the executable
         .\output.exe
     ```
-- **Linux**
+- ### **Linux**
     - for me, i use Arch Linux btw, so the commands and steps might be different depending on your distro but it is the same concept
     1. Download the **MinGW toolchain** from your distro's repository, to compile C++ codes to Windows executables
         ```bash
@@ -37,4 +37,9 @@
                wine64 path/to/outputFile.exe
           ```
         - I created a simple **bash script** to automate the **compile and run** process, you can integrate it with any text editor or IDE
-        - There is a Makefile if you want to use **make** with **make run** | **make clean** | **make**  
+        - There is also a **Makefile** if you want to use **make** with **make run** | **make clean** | **make**  
+
+    4.  #### LSP Support:
+        If u are using the Clangd language server, replace the src/compile_flags.txt file into the root directory where your clangd operate
+
+        
