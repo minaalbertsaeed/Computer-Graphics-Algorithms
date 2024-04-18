@@ -1,6 +1,7 @@
 #include "LineAlgorithms.h"
 #include <iostream>
 
+#include "LineAlgorithms.h"
 void swap(int &a, int &b)
 {
     int temp = a;

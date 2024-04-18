@@ -6,10 +6,9 @@
 
 #include <tchar.h>
 #include <windows.h>
-#include <iostream>
-#include "CircleAlgorithms.h"
-// #include "LineAlgorithms.h"
-using std::cout ;
+// #include "CircleAlgorithms.h"
+//
+#include "LineAlgorithms.h"
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
@@ -83,28 +82,17 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             hdc = GetDC(hwnd);
             x = LOWORD(lParam);
             y = HIWORD(lParam);
-            // cout << x << " " << y << "\n";
-            COLORREF c = RGB(255, 0,0 );
-            DrawCircleCartesian(hdc, 400, 400, 100, c);
+            // COLORREF c = RGB(255, 0,0 );
+            // DrawCircleCartesian(hdc, 400, 400, 100, c);
             ReleaseDC(hwnd, hdc);
             break;
         }
 
-        // case WM_LBUTTONUP:  {    // Release of left click
-        //     // COLORREF c = RGB(0, 0, 255); 
-        //     //
-        //     // hdc = GetDC(hwnd);
-        //     // int x1 = LOWORD(lParam);
-        //     // int y1 = HIWORD(lParam);
-        //     //
-        //     // DrawLineDDA(hdc, x, y, x1,y, c); // top 
-        //     // DrawLineDDA(hdc, x, y, x,y1, c);
-        //     // DrawLineDDA(hdc, x, y1, x1,y1, c);
-        //     // DrawLineDDA(hdc, x1, y, x1,y1,  c);
-        //     //
-        //     // ReleaseDC(hwnd, hdc);
-        //     break;
-        // }
+        case WM_LBUTTONUP:  {    // Release of left click
+            hdc = GetDC(hwnd);
+            ReleaseDC(hwnd, hdc);
+            break;
+        }
         case WM_CLOSE:
             DestroyWindow(hwnd);
             break;
