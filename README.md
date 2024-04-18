@@ -37,3 +37,4 @@
                wine64 path/to/outputFile.exe
           ```
         - I created a simple **bash script** to automate the **compile and run** process, you can integrate it with any text editor or IDE
+        - There is a Makefile if you want to use **make** with **make run** | **make clean** | **make**  
