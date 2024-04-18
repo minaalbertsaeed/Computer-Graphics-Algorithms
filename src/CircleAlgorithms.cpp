@@ -36,3 +36,17 @@ void DrawCircleCartesian(HDC hdc, int xc, int yc, int R, COLORREF c){
         Draw8Points(hdc, xc, yc, x, Round(y), c);
     }
 }
+
+
+void DrawCirclePolarNaive(HDC hdc, int xc, int yc, int R, COLORREF c){
+    int x = R, y = 0;
+    Draw8Points(hdc, xc, yc, x, y, c);
+    double theta = 0, dtheta = (double)1/R;
+    while (x > y) {
+        theta += dtheta;
+        x = Round(R * cos(theta));
+        y = Round(R * sin(theta));
+        Draw8Points(hdc, xc, yc, x, y, c);
+    }
+
+}

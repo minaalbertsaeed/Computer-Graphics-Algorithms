@@ -6,9 +6,9 @@
 
 #include <tchar.h>
 #include <windows.h>
-// #include "CircleAlgorithms.h"
+#include "CircleAlgorithms.h"
 //
-#include "LineAlgorithms.h"
+// #include "LineAlgorithms.h"
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
@@ -82,15 +82,15 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             hdc = GetDC(hwnd);
             x = LOWORD(lParam);
             y = HIWORD(lParam);
-            // COLORREF c = RGB(255, 0,0 );
-            // DrawCircleCartesian(hdc, 400, 400, 100, c);
+            COLORREF c = RGB(255, 0,0 );
+            DrawCirclePolarNaive(hdc, 400, 400, 100, c);
             ReleaseDC(hwnd, hdc);
             break;
         }
 
         case WM_LBUTTONUP:  {    // Release of left click
-            hdc = GetDC(hwnd);
-            ReleaseDC(hwnd, hdc);
+            // hdc = GetDC(hwnd);
+            // ReleaseDC(hwnd, hdc);
             break;
         }
         case WM_CLOSE:
