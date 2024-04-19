@@ -3,12 +3,12 @@
 #elif defined(_UNICODE) && !defined(UNICODE)
 #define UNICODE
 #endif
-
 #include <tchar.h>
 #include <windows.h>
 #include <wingdi.h>
-#include <cmath>
-#include "CircleAlgorithms/CircleAlgorithms.h"
+// #include <cmath>
+// #include "CircleAlgorithms/CircleAlgorithms.h"
+#include "EllipseAlgorithms/EllipseAlgorithms.h"
 //
 // #include "LineAlgorithms.h"
 /*  Declare Windows procedure  */
@@ -81,21 +81,22 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
     switch (message) {
 
         case WM_LBUTTONDOWN: {
-            // hdc = GetDC(hwnd);
+            hdc = GetDC(hwnd);
             x = LOWORD(lParam);
             y = HIWORD(lParam);
-            // ReleaseDC(hwnd, hdc);
+            COLORREF c = RGB(255, 0,0 );
+            DrawEllipseNaive(hdc, x, y,  100, 200, c);
+            ReleaseDC(hwnd, hdc);
             break;
         }
 
         case WM_LBUTTONUP:  {    // Release of left click
-            hdc = GetDC(hwnd);
-            COLORREF c = RGB(255, 0,0 );
-            int x1 = LOWORD(lParam);
-            int y1 = HIWORD(lParam);
-            double R = sqrt(pow(x1 - x, 2) + pow(y1 - y, 2));
-            DrawCircleBresenham1(hdc, x, y, R, c);
-            ReleaseDC(hwnd, hdc);
+            // hdc = GetDC(hwnd);
+            // COLORREF c = RGB(255, 0,0 );
+            // int x1 = LOWORD(lParam);
+            // int y1 = HIWORD(lParam);
+            //
+            // ReleaseDC(hwnd, hdc);
             break;
         }
         case WM_CLOSE:
