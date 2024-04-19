@@ -1,8 +1,8 @@
 #!/bin/bash
 
 cpp_files=(
-    # "src/LineAlgorithmsLineAlgorithms.cpp"
-    "CircleAlgorithms/CircleAlgorithms.cpp"
+    # "CircleAlgorithms/CircleAlgorithms.cpp"
+    "EllipseAlgorithms/EllipseAlgorithms.cpp"
     "main.cpp"
 )
 

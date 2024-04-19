@@ -85,7 +85,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             x = LOWORD(lParam);
             y = HIWORD(lParam);
             COLORREF c = RGB(255, 0,0 );
-            DrawEllipseNaive(hdc, x, y,  100, 200, c);
+            DrawEllipsePolarImproved(hdc, x, y,  100, 200, c);
             ReleaseDC(hwnd, hdc);
             break;
         }
