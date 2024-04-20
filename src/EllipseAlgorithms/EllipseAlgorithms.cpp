@@ -1,4 +1,5 @@
 #include "EllipseAlgorithms.h"
+#include "windef.h"
 #include <algorithm>
 #include <cmath>
 #include <windows.h>
@@ -76,4 +77,42 @@ void DrawEllipsePolarImproved(HDC hdc, int xc, int yc, int A, int B,COLORREF c) 
         x = temp;
         Draw4Points(hdc, xc, yc, Round(x), Round(y), c);
     }
+}
+
+void DrawEllipseBresenham1(HDC hdc, int xc, int yc, int A, int B, COLORREF c) {
+    double x = 0, y = B;
+    int A2 = A * A;
+    int B2 = B * B;
+    Draw4Points(hdc, xc, yc, x, y, c);
+    double d1 = B2 - B * A2;
+
+    while (x * B2 < y * A2) {
+        if (d1 >= 0) {
+            d1 += (2 * x * B2 ) + (3 * B2) + (-2 * y * A2) + 2 * A2;
+            y--;
+        }
+        else
+            d1 += (2 * x * B2) + (3 * B2);
+        
+        x++;
+        Draw4Points(hdc, xc, yc, Round(x), Round(y), c);
+    }
+    
+
+
+    x = A, y = 0;
+    double d2 = A2 - (A * B2);
+    while (x * B2 > y * A2) {
+        if (d2 >= 0) {
+            d2 += (-2 * x * B2) + (2 * B2) + (2 * y * A2) + (3 * A2) ;
+            x--;
+        }
+        else
+            d2 += (2 * y * A2) + (3 * A2);
+        
+        y++;
+        
+        Draw4Points(hdc, xc, yc, Round(x), Round(y), c);
+    }
+
 }

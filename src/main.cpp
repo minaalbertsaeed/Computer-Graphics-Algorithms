@@ -1,3 +1,4 @@
+#include <cstdlib>
 #if defined(UNICODE) && !defined(_UNICODE)
 #define _UNICODE
 #elif defined(_UNICODE) && !defined(UNICODE)
@@ -81,22 +82,21 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
     switch (message) {
 
         case WM_LBUTTONDOWN: {
-            hdc = GetDC(hwnd);
+            // hdc = GetDC(hwnd);
             x = LOWORD(lParam);
             y = HIWORD(lParam);
-            COLORREF c = RGB(255, 0,0 );
-            DrawEllipsePolarImproved(hdc, x, y,  100, 200, c);
-            ReleaseDC(hwnd, hdc);
+            // COLORREF c = RGB(255, 0,0 );
+            // ReleaseDC(hwnd, hdc);
             break;
         }
 
         case WM_LBUTTONUP:  {    // Release of left click
-            // hdc = GetDC(hwnd);
-            // COLORREF c = RGB(255, 0,0 );
-            // int x1 = LOWORD(lParam);
-            // int y1 = HIWORD(lParam);
-            //
-            // ReleaseDC(hwnd, hdc);
+            hdc = GetDC(hwnd);
+            COLORREF c = RGB(255, 0,0 );
+            int x1 = LOWORD(lParam);
+            int y1 = HIWORD(lParam);
+            DrawEllipseBresenham1(hdc, x, y,  abs(x-x1), abs(y-y1), c);
+            ReleaseDC(hwnd, hdc);
             break;
         }
         case WM_CLOSE:
