@@ -1,15 +1,24 @@
 #!/bin/bash
+printf "Which file U need !\n1) main.cpp\n2) mainGL.cpp\nEnter a choice: "
+read choice
 
-cpp_files=(
+# Set main_file to decide Which files to compile
+[ $choice = "1" ] && main_file="main.cpp" || main_file="mainGL.cpp"
+
+# Put here files to be compiled
+files_to_compile=(
     # "CircleAlgorithms/CircleAlgorithms.cpp"
     "EllipseAlgorithms/EllipseAlgorithms.cpp"
-    "main.cpp"
+    "$main_file"
 )
 
+# the final .exe file 
 output_file="output.exe"
 
-compile_run_command="x86_64-w64-mingw32-g++ -mwindows -lgdi32 -static ${cpp_files[*]} -o $output_file"
+compile_command="x86_64-w64-mingw32-g++ ${files_to_compile[*]} -o $output_file -mwindows -lopengl32 -static"
+
+printf "$compile_command\n"
 
 run_command="wine64 $output_file"
 
-$compile_run_command &&  $run_command  && rm $output_file 
+$compile_command &&  $run_command 
