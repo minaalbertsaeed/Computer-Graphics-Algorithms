@@ -4,7 +4,9 @@
 #include <cmath>
 #include <windows.h>
 #include <iostream>
+
 using std::cos, std::sin, std::sqrt, std::max, std::cout;
+
 void swap(int &a, int &b) {
     int temp = a;
     a = b;
@@ -88,11 +90,11 @@ void DrawEllipseBresenham1(HDC hdc, int xc, int yc, int A, int B, COLORREF c) {
 
     while (x * B2 < y * A2) {
         if (d1 >= 0) {
-            d1 += (2 * x * B2 ) + (3 * B2) + (-2 * y * A2) + 2 * A2;
+            d1 += B2 * (2 * x + 3) +  A2 * (-2 * y + 2 );
             y--;
         }
         else
-            d1 += (2 * x * B2) + (3 * B2);
+            d1 += B2 * (2 * x + 3);
         
         x++;
         Draw4Points(hdc, xc, yc, Round(x), Round(y), c);

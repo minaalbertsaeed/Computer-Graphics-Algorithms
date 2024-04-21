@@ -4,6 +4,8 @@
 #include <windows.h>
 #include <iostream>
 
+using std::cos, std::sin, std::sqrt;
+
 void swap(int &a, int &b) {
     int temp = a;
     a = b;
