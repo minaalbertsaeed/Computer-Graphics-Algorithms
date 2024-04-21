@@ -99,8 +99,6 @@ void DrawEllipseBresenham1(HDC hdc, int xc, int yc, int A, int B, COLORREF c) {
         x++;
         Draw4Points(hdc, xc, yc, Round(x), Round(y), c);
     }
-    
-
 
     x = A, y = 0;
     double d2 = A2 - (A * B2);
@@ -117,4 +115,53 @@ void DrawEllipseBresenham1(HDC hdc, int xc, int yc, int A, int B, COLORREF c) {
         Draw4Points(hdc, xc, yc, Round(x), Round(y), c);
     }
 
+}
+
+void DrawEllipseBresenham2(HDC hdc, int xc, int yc, int A, int B, COLORREF c) {
+    double x = 0, y = B;
+    Draw4Points(hdc, xc, yc, x, y, c);
+    int A2 = A * A;
+    int B2 = B * B;
+
+    double d1 = B2 - B * A2;
+    double Change1 = 3 * B2 + (2 * A2) * (-B + 1), Change2 = 3 * B2;
+    double ChangeInChange1 = 2 * (B2 + A2), ChangeInChange2 = 2 * B2;
+
+    while (x * B2 <= y * A2) {
+        if (d1 >= 0) {
+            d1 += Change1;
+            Change1 += ChangeInChange1;
+            y--;
+        }
+        else{
+            d1 += Change2;
+            Change1 += ChangeInChange2;
+        }
+        
+        x++;
+        Change2 += ChangeInChange2;
+        Draw4Points(hdc, xc, yc, Round(x), Round(y), c);
+    }
+    
+    x = A, y = 0;
+    double d2 = A2 - (A * B2);
+    Change1 = 3 * A2 + (2 * B2) * (-A + 1);
+    Change2 = 2 * A2;
+    ChangeInChange1 = 2 * (B2 + A2), ChangeInChange2 = 2 * A2;
+
+    while (x * B2 > y * A2) {
+        if (d2 >= 0) {
+            d2 += Change1;
+            Change1 += ChangeInChange1;
+            x--;
+        }
+        else{
+            d2 += Change2;
+            Change1 += ChangeInChange2;
+        }
+        Change2 += ChangeInChange2; 
+        y++;
+        
+        Draw4Points(hdc, xc, yc, Round(x), Round(y), c);
+    }
 }

@@ -20,5 +20,7 @@ void DrawEllipsePolarImproved(HDC hdc,int xc,int yc,int A,int B,COLORREF c);
 // Based on 1st order Difference
 void DrawEllipseBresenham1(HDC hdc,int xc,int yc,int A,int B,COLORREF c);
 
+// Based on 2nd order Difference
+void DrawEllipseBresenham2(HDC hdc,int xc,int yc,int A,int B,COLORREF c);
 
 #endif 
