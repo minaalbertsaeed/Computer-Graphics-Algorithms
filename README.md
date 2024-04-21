@@ -4,7 +4,9 @@
 - **Windows** (CMD or Powershell)
     ```CMD
         REM compile using the MinGW g++ compiler 
-        g++ -mwindows -lgdi32 InputFile.cpp -o outputFile.exe
+        g++ InputFile.cpp -o outputFile.exe -mwindows -lgdi32 (for normal Windows API App)
+        g++ InputFile.cpp -o outputFile.exe -mwindows -lopengl32 (for normal Windows API App)
+
 
         REM Run the executable
         .\output.exe
@@ -14,7 +16,8 @@
     1. Download the **MinGW toolchain** from your distro's repository, to compile C++ codes to Windows executables
         ```bash
             # Download MinGW toolchain
-            sudo pacman -S mingw-w64-gcc mingw-w64-headers                                                                                              
+            sudo pacman -S mingw-w64-gcc mingw-w64-headers
+            sudo pacman -S lib32-glm lib32-glu # Optional, just for use of OpenGL                                                                                             
         ```
     2. You will need [wine](https://www.winehq.org/) to be able to run the windows executables on linux
         -  wine is located in the **multilib repository**, 
@@ -30,8 +33,10 @@
         ```
     3. compile the code and run the executable with wine64
          ```bash
-            # compile to windows executable
-               x86_64-w64-mingw32-g++ -mwindows -lgdi32 path/to/InputFile.cpp -o path/to/outputFile.exe
+               # compile to windows executable (without OpenGL)
+               x86_64-w64-mingw32-g++  path/to/InputFile.cpp -o path/to/outputFile.exe -mwindows -lgdi32
+               # compile to windows executable (with OpenGL)
+               x86_64-w64-mingw32-g++  path/to/InputFile.cpp -o path/to/outputFile.exe -mwindows -lopengl32
             
             # run with wine64  
                wine64 path/to/outputFile.exe
