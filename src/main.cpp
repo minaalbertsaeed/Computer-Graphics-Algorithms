@@ -1,17 +1,18 @@
-#include <cstdlib>
 #if defined(UNICODE) && !defined(_UNICODE)
 #define _UNICODE
 #elif defined(_UNICODE) && !defined(UNICODE)
 #define UNICODE
 #endif
+
+/* Includes */
 #include <tchar.h>
 #include <windows.h>
 #include <wingdi.h>
 // #include <cmath>
 // #include "CircleAlgorithms/CircleAlgorithms.h"
 #include "EllipseAlgorithms/EllipseAlgorithms.h"
-//
-// #include "LineAlgorithms.h"
+
+
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
