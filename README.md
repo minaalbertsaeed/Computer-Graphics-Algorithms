@@ -26,12 +26,14 @@
         [multilib]
         Include = /etc/pacman.d/mirrorlist
         ```
-        - Then Sync the repositories and upgrade the system with:
+        - Update the system and install wine with:
         ```bash
+        # to sync the repositories and update the system 
         sudo pacman -Syu
+        # install wine
         sudo pacman -S wine
         ```
-    3. compile the code and run the executable with wine64
+    3. Compile the code and run the executable with wine64:
          ```bash
             # compile to windows executable (without OpenGL)
             x86_64-w64-mingw32-g++  paths/to/InputFiles.cpp -o path/to/outputFile.exe -mwindows -lgdi32
