@@ -5,7 +5,7 @@
     ```CMD
        REM compile using the MinGW g++ compiler 
        g++ InputFile.cpp -o outputFile.exe -mwindows -lgdi32 (for normal Windows API App)
-       g++ InputFile.cpp -o outputFile.exe -mwindows -lopengl32 (for normal Windows API App)
+       g++ InputFile.cpp -o outputFile.exe -mwindows -lopengl32 (for Windows API App with OpenGL)
 
 
        REM Run the executable
