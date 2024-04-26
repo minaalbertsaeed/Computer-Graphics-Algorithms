@@ -10,7 +10,7 @@ main_file="main.cpp"
 # Put here files to be compiled
 files_to_compile=(
     # "CircleAlgorithms/CircleAlgorithms.cpp"
-    "EllipseAlgorithms/EllipseAlgorithms.cpp"
+    # "EllipseAlgorithms/EllipseAlgorithms.cpp"
     "$main_file"
 )
 
