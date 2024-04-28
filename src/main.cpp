@@ -5,8 +5,7 @@
 #define UNICODE
 #endif
 
-/* Includes */
-#include <tchar.h>
+/* Includes */ #include <tchar.h>
 #include <windows.h>
 #include <wingdi.h>
 #include <utility>
@@ -16,7 +15,7 @@
 // #include "CircleAlgorithms/CircleAlgorithms.h"
 // #include "EllipseAlgorithms/EllipseAlgorithms.h"
 #include "LineAlgorithms/LineAlgorithms.h"
-using std::pair , std::vector, std::endl, std::cout;
+using std::pair , std::vector, std::endl, std::cout, std::make_pair;
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
@@ -86,7 +85,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
     HDC hdc;
     static int x, y;
     static int count = 0;
-    static int length = 4;
+    static int length = 5;
     static vector<pair<int, int >> points ;
     switch (message) {
 
@@ -95,15 +94,15 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             x = LOWORD(lParam);
             y = HIWORD(lParam);
             COLORREF c = RGB(255, 0,0 );
-            points.emplace_back(std::make_pair(x, y));
+            points.emplace_back(make_pair(x, y));
 
             if (count  == length - 1  ) {
-                for (size_t i = 0; i < length - 1;  i++) {
-                    DrawLineDDA(hdc,  points[i].first ,  points[i].second,  points[(i + 1) % 5].first,  points[(i + 1) % 5].second, c);
+                for (size_t i = 0; i < length;  i++) {
+                    DrawLineDDA(hdc,  points[i].first ,  points[i].second,  points[(i + 1) % length].first,  points[(i + 1) % length].second, c);
                 }
 
                 count = 0;
-                points = {};
+                points.clear() ;
             }      
             else count++;
             
