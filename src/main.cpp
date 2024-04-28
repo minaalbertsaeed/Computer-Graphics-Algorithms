@@ -1,3 +1,4 @@
+#include <vector>
 #if defined(UNICODE) && !defined(_UNICODE)
 #define _UNICODE
 #elif defined(_UNICODE) && !defined(UNICODE)
@@ -8,10 +9,14 @@
 #include <tchar.h>
 #include <windows.h>
 #include <wingdi.h>
+#include <utility>
+#include <vector>
+#include <iostream>
 // #include <cmath>
 // #include "CircleAlgorithms/CircleAlgorithms.h"
-#include "EllipseAlgorithms/EllipseAlgorithms.h"
-
+// #include "EllipseAlgorithms/EllipseAlgorithms.h"
+#include "LineAlgorithms/LineAlgorithms.h"
+using std::pair , std::vector, std::endl, std::cout;
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
@@ -80,24 +85,39 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
     HDC hdc;
     static int x, y;
+    static int count = 0;
+    static int length = 4;
+    static vector<pair<int, int >> points ;
     switch (message) {
 
         case WM_LBUTTONDOWN: {
-            // hdc = GetDC(hwnd);
+            hdc = GetDC(hwnd);
             x = LOWORD(lParam);
             y = HIWORD(lParam);
-            // COLORREF c = RGB(255, 0,0 );
-            // ReleaseDC(hwnd, hdc);
+            COLORREF c = RGB(255, 0,0 );
+            points.emplace_back(std::make_pair(x, y));
+
+            if (count  == length - 1  ) {
+                for (size_t i = 0; i < length - 1;  i++) {
+                    DrawLineDDA(hdc,  points[i].first ,  points[i].second,  points[(i + 1) % 5].first,  points[(i + 1) % 5].second, c);
+                }
+
+                count = 0;
+                points = {};
+            }      
+            else count++;
+            
+            ReleaseDC(hwnd, hdc);
             break;
         }
 
         case WM_LBUTTONUP:  {    // Release of left click
-            hdc = GetDC(hwnd);
-            COLORREF c = RGB(255, 0,0 );
-            int x1 = LOWORD(lParam);
-            int y1 = HIWORD(lParam);
-            DrawEllipseBresenham1(hdc, x, y,  abs(x-x1), abs(y-y1), c);
-            ReleaseDC(hwnd, hdc);
+            // hdc = GetDC(hwnd);
+            // COLORREF c = RGB(255, 0,0 );
+            // int x1 = LOWORD(lParam);
+            // int y1 = HIWORD(lParam);
+            // DrawEllipseBresenham1(hdc, x, y,  abs(x-x1), abs(y-y1), c);
+            // ReleaseDC(hwnd, hdc);
             break;
         }
         case WM_CLOSE:
