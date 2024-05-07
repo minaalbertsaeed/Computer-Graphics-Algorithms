@@ -1,18 +1,6 @@
-#include "LineAlgorithms.h"
 #include <iostream>
 
 #include "LineAlgorithms.h"
-void swap(int &a, int &b)
-{
-    int temp = a;
-    a = b;
-    b = temp;
-}
-
-int Round(double x)
-{
-	return (int)(x + 0.5);
-}
 
 void DrawLineNaive(HDC hdc, int x1, int y1, int x2, int y2, COLORREF c)
 {
