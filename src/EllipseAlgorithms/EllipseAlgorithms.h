@@ -2,11 +2,11 @@
 #define EllipseAlgorithms 
 
 #include <windows.h>
+#include "../helperFunctions.h"
 
 void Draw4Points(HDC hdc, int xc, int yc, int x, int y, COLORREF c);
 
 void DrawEllipseNaive(HDC hdc, int xc, int yc, int A, int B, COLORREF c);
-
 
 /*
 As (x, y) = (A * cos(theta), B * sin(theta)) 

@@ -7,16 +7,6 @@
 
 using std::cos, std::sin, std::sqrt, std::max, std::cout;
 
-void swap(int &a, int &b) {
-    int temp = a;
-    a = b;
-    b = temp;
-}
-
-int Round(double x) {
-	return (int)(x + 0.5);
-}
-
 void Draw4Points(HDC hdc, int xc, int yc, int x, int y, COLORREF c){
     SetPixel(hdc, xc+x, yc+y, c);
     SetPixel(hdc, xc-x, yc+y, c);

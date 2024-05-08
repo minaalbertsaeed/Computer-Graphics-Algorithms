@@ -2,6 +2,7 @@
 #define CircleAlgorithms 
 
 #include <windows.h>
+#include "../helperFunctions.h"
 
 void Draw8Points(HDC hdc, int xc, int yc, int x, int y, COLORREF c);
 // Using the Cartesian Equation of Circle --> (x^2 + y^2 = R^2)
