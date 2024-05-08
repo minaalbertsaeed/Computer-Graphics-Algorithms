@@ -11,6 +11,7 @@ main_file="main.cpp"
 files_to_compile=(
     # "CircleAlgorithms/CircleAlgorithms.cpp"
     # "CircleAlgorithms/CircleAlgorithms.cpp"
+    "FillingAlgorithms/FillingAlgorithms.cpp"
     "LineAlgorithms/LineAlgorithms.cpp"
     "$main_file"
 )
