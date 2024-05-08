@@ -1,9 +1,10 @@
-#include <tchar.h>
 #include <windows.h>
+#include <tchar.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #pragma comment(lib,"opengl32.lib")
 #pragma comment(lib,"glu32.lib")
+
 LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
 {
 	static PIXELFORMATDESCRIPTOR pfd = {
@@ -26,12 +27,15 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
 	0,                     // reserved  
 	0, 0, 0                // layer masks ignored  
 	};
+
 	static HDC hdc;
 	static HGLRC hgl;
 	static int x[3], y[3],w,h;
 	static int count = 0;
 	int  iPixelFormat;
-	switch (m) {
+
+	switch (m)
+	{
 	case WM_CREATE:
 		hdc = GetDC(hwnd);
 		iPixelFormat = ChoosePixelFormat(hdc, &pfd);
@@ -40,6 +44,7 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
 		wglMakeCurrent(hdc,hgl);
 		glClearColor(0, 0, 0, 0);
 		break;
+
 	case WM_SIZE:
 		w = LOWORD(lp);
 		h = HIWORD(lp);
@@ -48,12 +53,15 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
 		glFlush();
 		SwapBuffers(hdc);
 		break;
+
 	case WM_LBUTTONDOWN:
 		x[count] = LOWORD(lp);
 		y[count] = HIWORD(lp);
 		if (count == 2)
 		{
+
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 			glBegin(GL_TRIANGLES);
 			glColor3f(1, 0, 0);
 			glVertex2d(2.0 * x[0] / w - 1, 1 - 2.0 * y[0] / h);
@@ -62,45 +70,76 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
 			glColor3f(0, 0, 1);
 			glVertex2d(2.0 * x[2] / w - 1, 1 - 2.0 * y[2] / h);
 			glEnd();
+
 			glFlush();
 			SwapBuffers(hdc);
 			count = 0;
+
 		}
 		else count++;	
 		break;
+
 	case WM_DESTROY:
 		wglMakeCurrent(NULL, NULL);
 		wglDeleteContext(hgl);
 		ReleaseDC(hwnd, hdc);
 		PostQuitMessage(0);
 		break;
+
 	default: return DefWindowProc(hwnd, m, wp, lp);
+
 	}
 	return 0;
+
 }
+
 int APIENTRY WinMain(HINSTANCE hi, HINSTANCE pi, LPSTR c, int ns)
 {
+
 	WNDCLASS wc;
+
 	wc.cbClsExtra = 0;
+
 	wc.cbWndExtra = 0;
+
 	wc.hbrBackground = (HBRUSH)GetStockObject(LTGRAY_BRUSH);
+
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+
 	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
+
 	wc.hInstance = hi;
+
 	wc.lpfnWndProc = WndProc;
+
 	wc.lpszClassName = "MyClass";
+
 	wc.lpszMenuName = NULL;
+
 	wc.style = CS_HREDRAW | CS_VREDRAW;
+
 	RegisterClass(&wc);
+
 	HWND hwnd = CreateWindow("MyClass", "Hello World", WS_OVERLAPPEDWINDOW, 0, 0, 600, 400, NULL, NULL, hi, 0);
+
 	ShowWindow(hwnd, ns);
+
 	UpdateWindow(hwnd);
+
 	MSG msg;
+
 	while (GetMessage(&msg, NULL, 0, 0) > 0)
+
 	{
+
 		TranslateMessage(&msg);
+
 		DispatchMessage(&msg);
+
 	}
+
 	return 0;
+
 }
+
 

@@ -15,6 +15,7 @@
 // #include "CircleAlgorithms/CircleAlgorithms.h"
 // #include "EllipseAlgorithms/EllipseAlgorithms.h"
 #include "LineAlgorithms/LineAlgorithms.h"
+#include "FillingAlgorithms/FillingAlgorithms.h"
 using std::pair , std::vector, std::endl, std::cout, std::make_pair;
 
 /*  Declare Windows procedure  */
@@ -51,17 +52,18 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
 
     /* The class is registered, let's create the program*/
     hwnd =
-        CreateWindowEx(0,           /* Extended possibilites for variation */
-                       szClassName, /* Classname */
+        CreateWindowEx(0,                           /* Extended possibilites for variation */
+                       szClassName,                 /* Classname */
                        _T(" Template Windows App"), /* Title Text */
                        WS_OVERLAPPEDWINDOW,         /* default window */
-                       CW_USEDEFAULT, /* Windows decides the position */
-                       CW_USEDEFAULT, /* where the window ends up on the screen */ 544,           /* The programs width */
-                       375,           /* and height in pixels */
-                       HWND_DESKTOP, /* The window is a child-window to desktop */
-                       NULL,         /* No menu */
-                       hThisInstance, /* Program Instance handler */
-                       NULL           /* No Window Creation data */
+                       CW_USEDEFAULT,               /* Windows decides the position */
+                       CW_USEDEFAULT,               /* where the window ends up on the screen */ 
+                       544,                         /* The programs width */
+                       375,                         /* and height in pixels */
+                       HWND_DESKTOP,                /* The window is a child-window to desktop */
+                       NULL,                        /* No menu */
+                       hThisInstance,               /* Program Instance handler */
+                       NULL                         /* No Window Creation data */
                        );
 
     /* Make the window visible on the screen */
@@ -87,16 +89,16 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
     static int count = 0;
     static int length = 5;
     static vector<pair<int, int >> points ;
+    static COLORREF c = RGB(255, 0,0 );
     switch (message) {
 
         case WM_LBUTTONDOWN: {
             hdc = GetDC(hwnd);
             x = LOWORD(lParam);
             y = HIWORD(lParam);
-            COLORREF c = RGB(255, 0,0 );
             points.emplace_back(make_pair(x, y));
 
-            if (count  == length - 1  ) {
+            if (count  == length - 1) {
                 for (size_t i = 0; i < length;  i++) {
                     DrawLineDDA(hdc,  points[i].first ,  points[i].second,  points[(i + 1) % length].first,  points[(i + 1) % length].second, c);
                 }
@@ -110,13 +112,13 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             break;
         }
 
-        case WM_LBUTTONUP:  {    // Release of left click
-            // hdc = GetDC(hwnd);
-            // COLORREF c = RGB(255, 0,0 );
-            // int x1 = LOWORD(lParam);
-            // int y1 = HIWORD(lParam);
-            // DrawEllipseBresenham1(hdc, x, y,  abs(x-x1), abs(y-y1), c);
-            // ReleaseDC(hwnd, hdc);
+        case WM_RBUTTONDOWN:  {    // Release of left click
+            hdc = GetDC(hwnd);
+            COLORREF fc = RGB(0, 0,0 );
+            int x1 = LOWORD(lParam);
+            int y1 = HIWORD(lParam);
+            MyFloodFill(hdc, x1, y1, c, fc );
+            ReleaseDC(hwnd, hdc);
             break;
         }
         case WM_CLOSE:
