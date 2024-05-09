@@ -5,10 +5,10 @@
 void DrawLineNaive(HDC hdc, int x1, int y1, int x2, int y2, COLORREF c)
 {
     //calc the slope
-	int dx = abs(x2 - x1);
-	int dy = abs(y2 - y1);
+	int dx = (x2 - x1);
+	int dy = (y2 - y1);
 
-    if(dy<=dx){ // slope < 1
+    if(abs(dy)<=abs(dx)){ // slope < 1
         double slope = (double)dy/dx;
         if(x1>x2){
            swap(x1,x2) ;
