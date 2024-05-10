@@ -72,11 +72,6 @@ void DrawLineDDA(HDC hdc, int x1, int y1, int x2, int y2, COLORREF color) {
 
 
 void DrawLineBresenham(HDC hdc, int x1, int y1, int x2, int y2, COLORREF color){
-    // Case 1: slope < 1
-    // if (x1 > x2) {
-    //     swap(x1, x2);
-    //     swap(y1, y2);
-    // }
     int x = x1, y = y1, dx = abs(x2 - x1), dy = abs(y2 -y1);
     if(dx <= dy){
         int d_initial = dx - 2*dy;

@@ -1,3 +1,4 @@
+#include <vector>
 #if defined(UNICODE) && !defined(_UNICODE)
 #define _UNICODE
 #elif defined(_UNICODE) && !defined(UNICODE)
@@ -15,8 +16,8 @@
 // #include "CircleAlgorithms/CircleAlgorithms.h"
 // #include "EllipseAlgorithms/EllipseAlgorithms.h"
 #include "LineAlgorithms/LineAlgorithms.h"
-
 #include "FillingAlgorithms/FillingAlgorithms.h"
+
 using std::pair , std::vector, std::endl, std::cout, std::make_pair;
 
 /*  Declare Windows procedure  */
@@ -24,7 +25,6 @@ LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
 /*  Make the class name into a global variable  */
 TCHAR szClassName[] = _T("Windows App");
-
 
 int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow) {
     HWND hwnd;        /* This is the handle for our window */
@@ -85,31 +85,28 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
 
 /*  This function is called by the Windows function DispatchMessage()  */
 
-void DrawPolygon(HDC hdc, vector<pair<int,int>> &points, COLORREF c){
-    int length = points.size();  
-    for (size_t i = 0; i < length;  i++) {
-        DrawLineDDA(hdc,  points[i].first ,  points[i].second,  points[(i + 1) % length].first,  points[(i + 1) % length].second, c);
-    }
-}
-
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
     HDC hdc;
-    static int x, y; 
-    int count = 0, length = 5;
+    static int x, y;
+    static int count = 0;
+    static int length = 5;
     static vector<pair<int, int >> points ;
     static COLORREF c = RGB(255, 0,0 );
     switch (message) {
 
-        case WM_LBUTTONDOWN: {    // Down Left Click
+        case WM_LBUTTONDOWN: {
             hdc = GetDC(hwnd);
             x = LOWORD(lParam);
             y = HIWORD(lParam);
             points.emplace_back(make_pair(x, y));
 
             if (count  == length - 1) {
-                DrawPolygon(hdc, points, c);
+                for (size_t i = 0; i < length;  i++) {
+                    DrawLineDDA(hdc,  points[i].first ,  points[i].second,  points[(i + 1) % length].first,  points[(i + 1) % length].second, c);
+                }
+
                 count = 0;
-                points.clear();
+                points.clear() ;
             }      
             else count++;
             
@@ -117,13 +114,12 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             break;
         }
 
-        case WM_RBUTTONDOWN:  {    // Down Right Click
+        case WM_RBUTTONDOWN:  {    // Release of left click
             hdc = GetDC(hwnd);
             COLORREF fc = RGB(0, 0,0 );
             int x1 = LOWORD(lParam);
             int y1 = HIWORD(lParam);
-            // MyFloodFill(hdc, x1, y1, c, fc );
-            FloodFill(hdc, x, y, c);
+            MyFloodFill(hdc, x1, y1 , fc,  c);
             ReleaseDC(hwnd, hdc);
             break;
         }
