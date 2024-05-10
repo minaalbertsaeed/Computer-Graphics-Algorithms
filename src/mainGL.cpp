@@ -1,6 +1,9 @@
+// #include <minwindef.h>
 #include <windows.h>
+#include <iostream>
+#include <math.h>
 #include <tchar.h>
-#include <GL/gl.h>
+#include <GL/gl.h> 
 #include <GL/glu.h>
 #pragma comment(lib,"opengl32.lib")
 #pragma comment(lib,"glu32.lib")
@@ -30,71 +33,116 @@ LRESULT WINAPI WndProc(HWND hwnd, UINT m, WPARAM wp, LPARAM lp)
 
 	static HDC hdc;
 	static HGLRC hgl;
-	static int x[3], y[3],w,h;
+	static int w,h;
 	static int count = 0;
 	int  iPixelFormat;
 
-	switch (m)
-	{
-	case WM_CREATE:
-		hdc = GetDC(hwnd);
-		iPixelFormat = ChoosePixelFormat(hdc, &pfd);
-		SetPixelFormat(hdc, iPixelFormat, &pfd);
-		hgl=wglCreateContext(hdc);
-		wglMakeCurrent(hdc,hgl);
-		glClearColor(0, 0, 0, 0);
-		break;
+    switch (m)
+    {
+    case WM_CREATE:
+        hdc = GetDC(hwnd);
+        iPixelFormat = ChoosePixelFormat(hdc, &pfd);
+        SetPixelFormat(hdc, iPixelFormat, &pfd);
+        hgl = wglCreateContext(hdc);
+        wglMakeCurrent(hdc, hgl);
+        glClearColor(0, 0, 0, 0);
+        break;
 
-	case WM_SIZE:
-		w = LOWORD(lp);
-		h = HIWORD(lp);
-		glViewport(0, 0, w, h);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glFlush();
-		SwapBuffers(hdc);
-		break;
+    case WM_SIZE:
+        w = LOWORD(lp);
+        h = HIWORD(lp);
+        glViewport(0, 0, w, h);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluPerspective(45.0f, (GLfloat)w / (GLfloat)h, 0.1f, 100.0f);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        break;
 
-	case WM_LBUTTONDOWN:
-		x[count] = LOWORD(lp);
-		y[count] = HIWORD(lp);
-		if (count == 2)
-		{
+    case WM_LBUTTONDOWN: {
+        // Draw 3D Scene
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glLoadIdentity();
+        gluLookAt(5.0, 5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // Draw building
+        glColor3f(0.5f, 0.5f, 0.5f); // Gray building color
+        glBegin(GL_QUADS);
+        // Front face
+        glVertex3f(-1.0f, 0.0f, 1.0f);
+        glVertex3f(1.0f, 0.0f, 1.0f);
+        glVertex3f(1.0f, 2.0f, 1.0f);
+        glVertex3f(-1.0f, 2.0f, 1.0f);
+        // Back face
+        glVertex3f(-1.0f, 0.0f, -1.0f);
+        glVertex3f(-1.0f, 2.0f, -1.0f);
+        glVertex3f(1.0f, 2.0f, -1.0f);
+        glVertex3f(1.0f, 0.0f, -1.0f);
+        // Right face
+        glVertex3f(1.0f, 0.0f, 1.0f);
+        glVertex3f(1.0f, 2.0f, 1.0f);
+        glVertex3f(1.0f, 2.0f, -1.0f);
+        glVertex3f(1.0f, 0.0f, -1.0f);
+        // Left face
+        glVertex3f(-1.0f, 0.0f, 1.0f);
+        glVertex3f(-1.0f, 0.0f, -1.0f);
+        glVertex3f(-1.0f, 2.0f, -1.0f);
+        glVertex3f(-1.0f, 2.0f, 1.0f);
+        glEnd();
 
-			glBegin(GL_TRIANGLES);
-			glColor3f(1, 0, 0);
-			glVertex2d(2.0 * x[0] / w - 1, 1 - 2.0 * y[0] / h);
-			glColor3f(0, 1, 0);
-			glVertex2d(2.0 * x[1] / w - 1, 1 - 2.0 * y[1] / h);
-			glColor3f(0, 0, 1);
-			glVertex2d(2.0 * x[2] / w - 1, 1 - 2.0 * y[2] / h);
-			glEnd();
+        // Draw roof
+        glColor3f(0.8f, 0.4f, 0.1f); // Brown roof color
+        glBegin(GL_TRIANGLES);
+        glVertex3f(-1.0f, 2.0f, 1.0f);
+        glVertex3f(1.0f, 2.0f, 1.0f);
+        glVertex3f(0.0f, 3.5f, 0.0f);
+        glEnd();
 
-			glFlush();
-			SwapBuffers(hdc);
-			count = 0;
+        // Draw door
+        glColor3f(0.2f, 0.2f, 0.2f); // Dark gray door color
+        glBegin(GL_QUADS);
+        glVertex3f(-0.3f, 0.0f, 1.01f);
+        glVertex3f(0.3f, 0.0f, 1.01f);
+        glVertex3f(0.3f, 1.0f, 1.01f);
+        glVertex3f(-0.3f, 1.0f, 1.01f);
+        glEnd();
 
-		}
-		else count++;	
-		break;
+        // Draw windows
+        glColor3f(0.5f, 0.8f, 1.0f); // Light blue window color
+        glBegin(GL_QUADS);
+        // Window 1
+        glVertex3f(-0.8f, 1.5f, 1.01f);
+        glVertex3f(-0.6f, 1.5f, 1.01f);
+        glVertex3f(-0.6f, 1.8f, 1.01f);
+        glVertex3f(-0.8f, 1.8f, 1.01f);
+        // Window 2
+        glVertex3f(0.6f, 1.5f, 1.01f);
+        glVertex3f(0.8f, 1.5f, 1.01f);
+        glVertex3f(0.8f, 1.8f, 1.01f);
+        glVertex3f(0.6f, 1.8f, 1.01f);
+        glEnd();
+        // Window 3
+        glVertex3f(-0.8f, 0.2f, 1.01f);
+        glVertex3f(-0.6f, 0.2f, 1.01f);
+        glVertex3f(-0.6f, 0.5f, 1.01f);
+        glVertex3f(-0.8f, 0.5f, 1.01f);
+        // Window 4
+        glVertex3f(0.6f, 0.2f, 1.01f);
+        glVertex3f(0.8f, 0.2f, 1.01f);
+        glVertex3f(0.8f, 0.5f, 1.01f);
+        glVertex3f(0.6f, 0.5f, 1.01f);
+        glEnd();
 
-	case WM_DESTROY:
-		wglMakeCurrent(NULL, NULL);
-		wglDeleteContext(hgl);
-		ReleaseDC(hwnd, hdc);
-		PostQuitMessage(0);
-		break;
-
-	default: return DefWindowProc(hwnd, m, wp, lp);
-
-	}
+        glFlush();
+        SwapBuffers(hdc);
+        count = 0;
+    }
+    }
 	return 0;
 
 }
 
-int APIENTRY WinMain(HINSTANCE hi, HINSTANCE pi, LPSTR c, int ns)
-{
+int APIENTRY WinMain(HINSTANCE hi, HINSTANCE pi, LPSTR c, int ns) {
 
 	WNDCLASS wc;
 
